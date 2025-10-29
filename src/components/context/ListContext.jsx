@@ -25,4 +25,5 @@ function useListDispatchMethodsContext() {
     return useContext(ListDispatchContext);
 }
 
-export { ListProvider, useListContext, useListDispatchMethodsContext};
+export default ListProvider;
+export { useListContext, useListDispatchMethodsContext };
