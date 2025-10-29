@@ -10,17 +10,19 @@ function listReducer(state, action) {
         case 'ADD_ITEM':
             return {
                 ...state,
-                list: [...state.list, action.payload]
+                list: [...state.list, { ...action.payload, id: state.nextId }],
+                nextId: state.nextId + 1
             };
         default:
             return state;
     }
 }
 
-function useList(initialItems) {
+function useList(initialItems, lastUsedId) {
     const [state, dispatch] = useReducer(
         listReducer,
-        { 
+        {
+            nextId: lastUsedId + 1 || initialItems.length + 1,
             list: [...initialItems]
         }
     );

@@ -14,7 +14,6 @@ const AddProjectForm = memo(() => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const newProject = {
-            id: Date.now(),
             name: e.target[0].value,
             creatorId: 999
         };

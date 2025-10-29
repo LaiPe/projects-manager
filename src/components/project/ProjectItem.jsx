@@ -10,7 +10,7 @@ const ProjectItem = memo(({ project }) => {
 
     return (
         <li>
-            {project.name} (Created by User {project.creatorId})
+            {project.id} {project.name} (Created by User {project.creatorId})
             <button onClick={() => onDelete(project)}>Delete</button>
         </li>
     );
