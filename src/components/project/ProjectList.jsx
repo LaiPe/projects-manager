@@ -2,7 +2,7 @@ import { useCallback, memo } from 'react';
 import AddProjectForm from './AddProjectForm';
 import ProjectItem from './ProjectItem';
 
-import ListProvider, { useListContext } from '../context/ListContext';
+import {ListProvider, useListContext } from '../context/ListContext';
 
 const PROJECTS = [
     { id: 1, name: 'Project Alpha', creatorId: 101 },
