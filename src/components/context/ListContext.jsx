@@ -5,7 +5,7 @@ import useList from '../../hooks/useList';
 const ListContext = createContext(null);
 const ListDispatchContext = createContext(null);
 
-function ListProvider({ initialItems, children }) {
+export function ListProvider({ initialItems, children }) {
     const {list, dispatchMethods} = useList(initialItems);
 
     return (
@@ -17,12 +17,10 @@ function ListProvider({ initialItems, children }) {
     );
 }
 
-function useListContext() {
+export function useListContext() {
     return useContext(ListContext);
 }
 
-function useListDispatchMethodsContext() {
+export function useListDispatchMethodsContext() {
     return useContext(ListDispatchContext);
 }
-
-export {ListProvider, useListContext, useListDispatchMethodsContext };
