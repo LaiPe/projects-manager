@@ -25,8 +25,7 @@ const AddProjectForm = memo(() => {
 
     return (
         <li>
-            {!isOpened && <button onClick={toggleForm}>Add Project</button>}
-            {isOpened && (
+            { isOpened ? (
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -34,7 +33,10 @@ const AddProjectForm = memo(() => {
                         required
                     />
                     <button type="submit">Create</button>
+                    <button type="button" onClick={toggleForm}>Cancel</button>
                 </form>
+            ) : (
+                <button onClick={toggleForm}>Add Project</button>
             )}
         </li>
     );
