@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import { useReducer, useMemo } from 'react';
 
 function listReducer(state, action) {
     switch (action.type) {
@@ -25,17 +25,16 @@ function useList(initialItems) {
         }
     );
 
+    const dispatchMethods = useMemo(() => ({
+        deleteItem: (item) => dispatch({ type: 'DELETE_ITEM', payload: item.id }),
+        addItem: (item) => dispatch({ type: 'ADD_ITEM', payload: item }),
+
+    }), []);
+
     return {
         list: state.list,
-        deleteItem: useCallback(
-            item => dispatch({ type: 'DELETE_ITEM', payload: item.id }),
-            []
-        ),
-        addItem: useCallback(
-            item => dispatch({ type: 'ADD_ITEM', payload: item }),
-             []
-        )
-    }
+        dispatchMethods
+    };
 }
 
 export default useList;
