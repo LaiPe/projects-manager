@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import useList from '../../hooks/useList';
+import useList from '../hooks/useList';
 
 
 const ListContext = createContext(null);

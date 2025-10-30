@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 
-import { useListDispatchMethodsContext } from '../context/ListContext';
+import { useListDispatchMethodsContext } from '../../contexts/ListContext';
 
 const ProjectItem = memo(({ project }) => {
 
