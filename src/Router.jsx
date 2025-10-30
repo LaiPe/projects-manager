@@ -7,12 +7,15 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import ProjectsPage from './pages/ProjectsPage.jsx';
 import TasksPage from './pages/TasksPage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
+import Register from './pages/Register.jsx';
+import Login from './pages/Login.jsx';
+import { AuthProvider } from './contexts/AuthContext.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootOutlet />,
-    errorElement: <ErrorPageWithLayout />,
+    element: <Root><Outlet /></Root>,
+    errorElement: <Root><ErrorPage /></Root>,
     children: [
       {
         path: '',
@@ -24,42 +27,42 @@ const router = createBrowserRouter([
       },
       {
         path: '/projects',
-        element: <ProjectsPage />
+        element: <ProjectsPage />,
       },
       {
         path: '/tasks',
         element: <TasksPage />
+      },
+      {
+        path: '/register',
+        element: <Register />
+      },
+      {
+        path: '/login',
+        element: <Login />
       }
     ]
   }
 ]);
 
-function Router() {
-    return <RouterProvider router={router} />;
-}
-
-function RootOutlet() {
+function Root({children}) {
     return (
       <>
         <Header />
         <main>
-          <Outlet />
+          {children}
         </main>
         <Footer />
       </>
     );
 }
 
-function ErrorPageWithLayout() {
-  return (
-    <>
-      <Header />
-      <main>
-        <ErrorPage />
-      </main>
-      <Footer />
-    </>
-  );
+function Router() {
+    return (
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    );
 }
 
 export default Router;
