@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
 import Header from './layouts/Header.jsx';
 import Footer from './layouts/Footer.jsx';
 
@@ -9,7 +9,9 @@ import TasksPage from './pages/TasksPage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
-import { AuthProvider } from './contexts/AuthContext.jsx';
+import Home from './pages/Home.jsx';
+
+import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,19 +21,39 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Dashboard />
+        element: <Home />
+      },
+      {
+        path: '/dashboard',
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        )
       },
       {
         path: '/profile',
-        element: <ProfilePage />
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        )
       },
       {
         path: '/projects',
-        element: <ProjectsPage />,
+        element: (
+          <ProtectedRoute>
+            <ProjectsPage />
+          </ProtectedRoute>
+        )
       },
       {
         path: '/tasks',
-        element: <TasksPage />
+        element: (
+          <ProtectedRoute>
+            <TasksPage />
+          </ProtectedRoute>
+        )
       },
       {
         path: '/register',
@@ -45,6 +67,30 @@ const router = createBrowserRouter([
   }
 ]);
 
+// Composant pour les routes protégées
+function ProtectedRoute({ children }) {
+  const { isAuthenticated, loading } = useAuth();
+  
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
+  
+  if (!isAuthenticated) {
+    // Rediriger vers la page de connexion ou afficher un message
+    return <Navigate to="/login" replace />;
+  }
+  
+  return children;
+}
+
+function Router() {
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
+}
+
 function Root({children}) {
     return (
       <>
@@ -54,14 +100,6 @@ function Root({children}) {
         </main>
         <Footer />
       </>
-    );
-}
-
-function Router() {
-    return (
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
     );
 }
 
