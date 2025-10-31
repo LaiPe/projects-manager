@@ -5,9 +5,9 @@ import ProjectItem from './ProjectItem';
 import {ListProvider, useListContext } from '../../contexts/ListContext';
 
 const PROJECTS = [
-    { id: 1, name: 'Project Alpha', creatorId: 101 },
-    { id: 2, name: 'Project Beta', creatorId: 102 },
-    { id: 3, name: 'Project Gamma', creatorId: 103 },
+    { id: 1, name: 'Projet Alpha', creatorId: 101 },
+    { id: 2, name: 'Projet Beta', creatorId: 102 },
+    { id: 3, name: 'Projet Gamma', creatorId: 103 },
 ];
 
 function ProjectList() {
@@ -15,7 +15,7 @@ function ProjectList() {
 
     return (
         <div>
-            <h2>Project List</h2>
+            <h2>Liste des projets</h2>
             <ListProvider initialItems={PROJECTS}>
                 <ProjectListContent />
             </ListProvider>

@@ -1,8 +1,8 @@
 function Dashboard() {
     return (
         <div>
-            <h2>Dashboard</h2>
-            <p>Welcome to the dashboard page!</p>
+            <h2>Tableau de bord</h2>
+            <p>Bienvenue sur la page du tableau de bord !</p>
         </div>
     )
 }

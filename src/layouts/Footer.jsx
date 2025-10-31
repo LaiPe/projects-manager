@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <footer>
-            <p>© 2024 Projects Manager. All rights reserved.</p>
+            <p>© 2024 Projects Manager. Tous droits réservés.</p>
         </footer>
     );
 }

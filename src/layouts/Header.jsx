@@ -12,10 +12,10 @@ function Header() {
                     {isAuthenticated ? (
                         // Navigation pour utilisateur connecté
                         <>
-                            <NavLink to="/">Dashboard</NavLink>
-                            <NavLink to="/profile">Profile</NavLink>
-                            <NavLink to="/projects">Projects</NavLink>
-                            <NavLink to="/tasks">Tasks</NavLink>
+                            <NavLink to="/dashboard">Tableau de bord</NavLink>
+                            <NavLink to="/profile">Profil</NavLink>
+                            <NavLink to="/projects">Projets</NavLink>
+                            <NavLink to="/tasks">Tâches</NavLink>
                         </>
                     ) : (
                         // Navigation pour utilisateur non connecté

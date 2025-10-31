@@ -31,15 +31,15 @@ const ProjectItem = memo(({ project }) => {
                             defaultValue={project.name}
                             required
                         />
-                        <button type="submit">Update</button>
-                        <button type="button" onClick={toggleForm}>Cancel</button>
+                        <button type="submit">Valider</button>
+                        <button type="button" onClick={toggleForm}>Annuler</button>
                     </form>
                 </li>
             ) : (
                 <li>
-                    {project.id} {project.name} (Created by User {project.creatorId})
-                    <button onClick={toggleForm}>Edit</button>
-                    <button onClick={() => onDelete(project)}>Delete</button>
+                    {project.id} {project.name} (Créé par l'utilisateur {project.creatorId})
+                    <button onClick={toggleForm}>Modifier</button>
+                    <button onClick={() => onDelete(project)}>Supprimer</button>
                 </li>
             )}
 

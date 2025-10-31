@@ -1,8 +1,8 @@
 function ProfilePage() {
     return (
         <div>
-            <h1>Profile Page</h1>
-            <p>Welcome to your profile page. Here you can view and edit your personal information.</p>
+            <h1>Profil</h1>
+            <p>Bienvenue sur votre page de profil. Ici, vous pouvez consulter et modifier vos informations personnelles.</p>
         </div>
     );
 }

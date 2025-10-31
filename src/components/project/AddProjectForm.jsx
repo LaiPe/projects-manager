@@ -21,7 +21,7 @@ const AddProjectForm = memo(() => {
         setIsOpened(false);
     }
 
-    console.log('Render AddProjectForm');
+    // console.log('Render AddProjectForm');
 
     return (
         <li>
@@ -29,14 +29,14 @@ const AddProjectForm = memo(() => {
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Project Name"
+                        placeholder="Nom du projet"
                         required
                     />
-                    <button type="submit">Create</button>
-                    <button type="button" onClick={toggleForm}>Cancel</button>
+                    <button type="submit">Créer</button>
+                    <button type="button" onClick={toggleForm}>Annuler</button>
                 </form>
             ) : (
-                <button onClick={toggleForm}>Add Project</button>
+                <button onClick={toggleForm}>Ajouter un projet</button>
             )}
         </li>
     );

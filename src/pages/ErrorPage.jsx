@@ -1,8 +1,8 @@
 function ErrorPage() {
     return (
         <div>
-            <h1>Error</h1>
-            <p>The page you are looking for does not exist.</p>
+            <h1>Erreur 404</h1>
+            <p>La page que vous recherchez n'existe pas.</p>
         </div>
     );
 }
