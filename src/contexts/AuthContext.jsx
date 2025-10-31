@@ -27,8 +27,11 @@ export function AuthProvider({ children }) {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
             
             if (!response.ok) {
+                if (response.status === 400) {
+                    throw new Error("Vérifiez vos informations d'identification.");
+                }
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || `Erreur HTTP: ${response.status}`);
+                throw new Error(errorData.message || "Une erreur s'est produite ! Veuillez réessayer plus tard.", { cause: response.status });
             }
 
             // Vérifier si la réponse contient du JSON
@@ -52,7 +55,7 @@ export function AuthProvider({ children }) {
             setIsAuthenticated(true);
             
         } catch (error) {
-            if (error.message !== 'Erreur HTTP: 403') {
+            if (error.cause !== 403) {
                 console.error('Erreur lors de la vérification de l\'authentification:', error);
             }
             setIsAuthenticated(false);
