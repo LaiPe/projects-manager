@@ -25,12 +25,15 @@ function listReducer(state, action) {
     }
 }
 
-function useList(initialItems, lastUsedId) {
+function useList(initialItems = [], lastUsedId) {
+    // S'assurer que initialItems est un tableau
+    const safeInitialItems = Array.isArray(initialItems) ? initialItems : [];
+    
     const [state, dispatch] = useReducer(
         listReducer,
         {
-            nextId: lastUsedId + 1 || initialItems.length + 1,
-            list: [...initialItems]
+            nextId: lastUsedId + 1 || safeInitialItems.length + 1,
+            list: [...safeInitialItems]
         }
     );
 

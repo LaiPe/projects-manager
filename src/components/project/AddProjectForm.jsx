@@ -4,7 +4,6 @@ import { useListDispatchMethodsContext } from '../../contexts/ListContext';
 
 const AddProjectForm = memo(() => {
     const [isOpened, setIsOpened] = useState(false);
-
     const addProject = useListDispatchMethodsContext().addItem;
 
     const toggleForm = () => {
@@ -20,8 +19,6 @@ const AddProjectForm = memo(() => {
         addProject(newProject);
         setIsOpened(false);
     }
-
-    // console.log('Render AddProjectForm');
 
     return (
         <li>

@@ -1,49 +1,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { apiRequest } from '../utils/ApiRequest';
 
 const AuthContext = createContext(null);
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    // Fonction pour effectuer des requêtes API avec gestion des erreurs
-    const apiRequest = async (endpoint, method = 'GET', body = null) => {
-        try {
-            const config = {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include', // Important pour inclure les cookies httpOnly
-            };
-
-            if (body) {
-                config.body = JSON.stringify(body);
-            }
-
-            const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-            
-            if (!response.ok) {
-                if (response.status === 400) {
-                    throw new Error("Vérifiez vos informations d'identification.");
-                }
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || "Une erreur s'est produite ! Veuillez réessayer plus tard.", { cause: response.status });
-            }
-
-            // Vérifier si la réponse contient du JSON
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                return await response.json();
-            }
-            
-            return null;
-        } catch (error) {
-            throw error;
-        }
-    };
 
     // Fonction pour vérifier le statut d'authentification
     const checkAuthStatus = async () => {
@@ -138,7 +101,6 @@ export function AuthProvider({ children }) {
         login,
         logout,
         register,
-        apiRequest,
         checkAuthStatus,
     };
 
@@ -152,7 +114,7 @@ export function AuthProvider({ children }) {
 // Hook personnalisé pour utiliser le contexte d'authentification
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    if (context === undefined) {
+    if (context === null) {
         throw new Error('useAuth doit être utilisé dans un AuthProvider');
     }
     return context;

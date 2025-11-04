@@ -14,86 +14,16 @@ import Home from './pages/Home.jsx';
 import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
 import Spinner from './components/spinner/Spinner.jsx';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root><Outlet /></Root>,
-    errorElement: <Root><ErrorPage /></Root>,
-    children: [
-      {
-        path: '',
-        element: <Home />
-      },
-      {
-        path: '/dashboard',
-        element: (
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/profile',
-        element: (
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/projects',
-        element: (
-          <ProtectedRoute>
-            <ProjectsPage />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/tasks',
-        element: (
-          <ProtectedRoute>
-            <TasksPage />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/register',
-        element: <Register />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      },
-      {
-        path: '/logout',
-        // utiliser la méthode logout du contexte d'authentification
-        element: (
-          <ProtectedRoute> 
-            <Logout />
-          </ProtectedRoute>
-        )
-      }
-    ]
-  }
-]);
 
 // Composant pour les routes protégées
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
     // Rediriger vers la page de connexion ou afficher un message
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
   
   return children;
-}
-
-function Router() {
-  return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  );
 }
 
 function Root({children}) {
@@ -123,4 +53,77 @@ function Logout() {
   return <Navigate to="/" replace />;
 }
 
-export default Router;
+function AppRouter() {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Root><Outlet /></Root>,
+      errorElement: <Root><ErrorPage /></Root>,
+      children: [
+        {
+          path: '',
+          element: <Home />
+        },
+        {
+          path: '/dashboard',
+          element: (
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: '/profile',
+          element: (
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: '/projects',
+          element: (
+            <ProtectedRoute>
+              <ProjectsPage />
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: '/tasks',
+          element: (
+            <ProtectedRoute>
+              <TasksPage />
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: '/register',
+          element: <Register />
+        },
+        {
+          path: '/login',
+          element: <Login />
+        },
+        {
+          path: '/logout',
+          // utiliser la méthode logout du contexte d'authentification
+          element: (
+            <ProtectedRoute> 
+              <Logout />
+            </ProtectedRoute>
+          )
+        }
+      ]
+    }
+  ]);
+
+  return <RouterProvider router={router} />;
+}
+
+export default function Router() {
+  return (
+    <AuthProvider>
+      <AppRouter />
+    </AuthProvider>
+  );
+}

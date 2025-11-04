@@ -3,11 +3,7 @@ import { memo, useState } from 'react';
 import { useListDispatchMethodsContext } from '../../contexts/ListContext';
 
 const ProjectItem = memo(({ project }) => {
-
-    console.log('Render ProjectItem for project:', project.name);
-
     const { deleteItem: onDelete, updateItem: onUpdate } = useListDispatchMethodsContext();
-
     const [isEditing, setIsEditing] = useState(false);
 
     const toggleForm = () => {
