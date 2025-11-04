@@ -63,6 +63,15 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
+      },
+      {
+        path: '/logout',
+        // utiliser la méthode logout du contexte d'authentification
+        element: (
+          <ProtectedRoute> 
+            <Logout />
+          </ProtectedRoute>
+        )
       }
     ]
   }
@@ -104,6 +113,14 @@ function Root({children}) {
       </>
     );
   }
+}
+
+function Logout() {
+  const { logout } = useAuth();
+
+  // Appeler la fonction de déconnexion et rediriger vers la page d'accueil
+  logout();
+  return <Navigate to="/" replace />;
 }
 
 export default Router;

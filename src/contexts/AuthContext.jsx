@@ -1,13 +1,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 export function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    
-    // URL de base de votre API
-    const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     // Fonction pour effectuer des requêtes API avec gestion des erreurs
     const apiRequest = async (endpoint, method = 'GET', body = null) => {
@@ -53,6 +52,7 @@ export function AuthProvider({ children }) {
             const response = await apiRequest('/auth/verify');
             
             setIsAuthenticated(true);
+            setUser(response.user);
             
         } catch (error) {
             if (error.cause !== 403) {
@@ -72,6 +72,7 @@ export function AuthProvider({ children }) {
             
             if (response) {
                 setIsAuthenticated(true);
+                setUser(response.user);
                 return { success: true };
             } else {
                 throw new Error('Réponse invalide du serveur');
@@ -111,6 +112,7 @@ export function AuthProvider({ children }) {
 
             if (response) {
                 setIsAuthenticated(true);
+                setUser(response.user);
                 return { success: true };
             } else {
                 throw new Error('Réponse invalide du serveur');
@@ -130,6 +132,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     const value = {
+        user,
         isAuthenticated,
         loading,
         login,
