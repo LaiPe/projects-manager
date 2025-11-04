@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet, RouterProvider, useNavigation } from 'react-router-dom';
 import Header from './layouts/Header.jsx';
 import Footer from './layouts/Footer.jsx';
 
@@ -12,6 +12,7 @@ import Login from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
 
 import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
+import Spinner from './components/spinner/Spinner.jsx';
 
 const router = createBrowserRouter([
   {
@@ -69,12 +70,7 @@ const router = createBrowserRouter([
 
 // Composant pour les routes protégées
 function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
-  
-  if (loading) {
-    return <div>Chargement...</div>;
-  }
-  
+  const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
     // Rediriger vers la page de connexion ou afficher un message
     return <Navigate to="/login" replace />;
@@ -92,15 +88,22 @@ function Router() {
 }
 
 function Root({children}) {
+  const { state } = useNavigation();
+  const { loading } = useAuth();
+
+  if (loading) {
+    return <Spinner />;
+  } else {
     return (
       <>
         <Header />
         <main>
-          {children}
+          {state === 'loading' ? <Spinner /> : children}
         </main>
         <Footer />
       </>
     );
+  }
 }
 
 export default Router;

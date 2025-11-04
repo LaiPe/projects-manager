@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 function Header() {
-    const { user, isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated, loading } = useAuth();
 
     return (
         <header>
