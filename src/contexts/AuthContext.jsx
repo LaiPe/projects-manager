@@ -117,10 +117,7 @@ export function AuthProvider({ children }) {
             }
         } catch (error) {
             console.error('Erreur lors de l\'inscription:', error);
-            return { 
-                success: false, 
-                error: error.message || 'Erreur lors de l\'inscription'
-            };
+            throw error;
         } finally {
             setLoading(false);
         }

@@ -33,11 +33,9 @@ function Register() {
             if (result.success) {
                 // Redirection vers le dashboard après inscription réussie
                 navigate('/');
-            } else {
-                setError(result.error);
             }
         } catch (err) {
-            setError('Une erreur est survenue lors de l\'inscription');
+            setError('Une erreur est survenue lors de l\'inscription, veuillez réessayer plus tard.');
         } finally {
             setIsSubmitting(false);
         }
