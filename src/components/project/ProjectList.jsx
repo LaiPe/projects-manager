@@ -9,29 +9,30 @@ const MOCKUP_PROJECTS = [
     { id: 3, name: 'Projet Gamma', creatorId: 103 },
 ];
 
-function ProjectList({ projects=MOCKUP_PROJECTS }) {
+function ProjectList({ projects=MOCKUP_PROJECTS, onError }) {
     return (
         <div>
             <h2>Liste des projets</h2>
             <ListProvider initialItems={projects}>
-                <ProjectListContent />
+                <ProjectListContent onError={onError} />
             </ListProvider>
         </div>
     );
 }
 
 
-function ProjectListContent() {
+function ProjectListContent({onError}) {
     const projects = useListContext();
     return (
         <ul>
             {projects.map(project => (
                 <ProjectItem 
                     key={project.id} 
-                    project={project} 
+                    project={project}
+                    onError={onError}
                 />
             ))}
-            <AddProjectForm />
+            <AddProjectForm onError={onError} />
         </ul>
     );
 }

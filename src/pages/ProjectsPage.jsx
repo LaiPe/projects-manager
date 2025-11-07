@@ -1,5 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
-import { Await } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { getUserProjects } from '../services/ProjectService';
 
@@ -9,25 +8,34 @@ import Spinner from '../components/spinner/Spinner';
 function ProjectsPage() {
     const { user } = useAuth();
     const [projects, setProjects] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchProjects = async () => {
-            const data = await getUserProjects(user.id);
-            setProjects(data || []);
+            setLoading(true);
+
+            try {
+                const data = await getUserProjects(user.id);
+                setProjects(data);
+            } catch (error) {
+                setError('Erreur chargement projets:');
+            } finally {
+                setLoading(false);
+            }
         };
 
-        fetchProjects();
+        if (user?.id) {
+            fetchProjects();
+        }
     }, [user.id]);
 
     return (
         <div>
             <h1>Projets</h1>
             <p>Bienvenue sur la page des projets. Ici, vous pouvez gérer vos projets.</p>
-            <Suspense fallback={<Spinner />}>
-                <Await resolve={projects}>
-                    <ProjectList projects={projects} />
-                </Await>
-            </Suspense>
+            {error && <p style={{color: 'red'}}>{error}</p>}
+            {loading ? <Spinner /> : <ProjectList projects={projects} onError={setError} />}
         </div>
     );
 }

@@ -10,7 +10,7 @@ export const createProject = async (projectData) => {
 };
 
 export const updateProject = async (projectId, projectData) => {
-    return await apiRequest(`/projects/${projectId}`, 'PUT', projectData);
+    return await apiRequest(`/projects/${projectId}`, 'PATCH', projectData);
 };
 
 export const deleteProject = async (projectId) => {
