@@ -13,8 +13,6 @@ function Header() {
                         // Navigation pour utilisateur connecté
                         <>
                             <span>Bienvenue, {user.username}!</span>
-                            <NavLink to="/dashboard">Tableau de bord</NavLink>
-                            <NavLink to="/profile">Profil</NavLink>
                             <NavLink to="/projects">Projets</NavLink>
                             <NavLink to="/tasks">Tâches</NavLink>
                             <NavLink to="/logout">Déconnexion</NavLink>

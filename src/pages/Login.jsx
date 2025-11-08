@@ -25,7 +25,7 @@ export function Login() {
 
         try {
             await login(formData);
-            navigate('/dashboard');
+            navigate('/projects');
         } catch (error) {
             setError(error.message || 'Échec de la connexion, veuillez vérifier vos identifiants et réessayer.');
         } finally {

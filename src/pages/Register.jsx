@@ -25,7 +25,7 @@ function Register() {
 
         try {
             await register(formData);
-            navigate('/');
+            navigate('/projects');
         } catch (err) {
             setError(err.message || 'Une erreur est survenue lors de l\'inscription, veuillez réessayer plus tard.');
         } finally {

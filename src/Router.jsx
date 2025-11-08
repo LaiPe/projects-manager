@@ -3,8 +3,6 @@ import { useEffect } from 'react';
 import Header from './layouts/Header.jsx';
 import Footer from './layouts/Footer.jsx';
 
-import Dashboard from './pages/Dashboard.jsx'
-import ProfilePage from './pages/ProfilePage.jsx';
 import ProjectsPage from './pages/ProjectsPage.jsx';
 import ProjectPage from './pages/ProjectPage.jsx';
 import TasksPage from './pages/TasksPage.jsx';
@@ -25,22 +23,6 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <Home />
-      },
-      {
-        path: '/dashboard',
-        element: (
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/profile',
-        element: (
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        )
       },
       {
         path: '/projects',
