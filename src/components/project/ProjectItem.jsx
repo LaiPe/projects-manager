@@ -2,9 +2,11 @@ import { memo, useState, useEffect } from 'react';
 
 import { useListDispatchMethodsContext } from '../../contexts/ListContext';
 import { updateProject, deleteProject } from '../../services/ProjectService';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectItem = memo(({ project, onError }) => {
     const { deleteItem: onDelete, updateItem: onUpdate } = useListDispatchMethodsContext();
+    const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
     const [editedName, setEditedName] = useState(project.name);
     const [error, setError] = useState('');
@@ -63,6 +65,10 @@ const ProjectItem = memo(({ project, onError }) => {
         }
     };
 
+    const handleViewDetails = () => {
+        navigate(`/projects/${project.id}`);
+    };
+
     return (
         <>
             { isEditing ? (
@@ -84,6 +90,7 @@ const ProjectItem = memo(({ project, onError }) => {
                     {project.id} {project.name} (Créé par l'utilisateur {project.creatorId})
                     <button onClick={toggleForm}>Modifier</button>
                     <button onClick={handleDelete}>Supprimer</button>
+                    <button onClick={handleViewDetails}>Voir les détails</button>
                 </li>
             )}
 

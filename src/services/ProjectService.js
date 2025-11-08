@@ -5,6 +5,10 @@ export const getUserProjects = async (userId) => {
     return await apiRequest(`/users/${userId}/projects`, 'GET');
 };
 
+export const getProjectById = async (projectId) => {
+    return await apiRequest(`/projects/${projectId}`, 'GET');
+};
+
 export const createProject = async (projectData) => {
     return await apiRequest('/projects', 'POST', projectData);
 };
