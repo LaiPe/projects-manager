@@ -10,6 +10,8 @@ import ErrorPage from './pages/ErrorPage.jsx';
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
+import TermsOfService from './pages/TermsOfService.jsx';
 
 import { AuthProvider, useAuth } from './contexts/AuthContext.jsx';
 import Spinner from './components/spinner/Spinner.jsx';
@@ -59,6 +61,14 @@ const router = createBrowserRouter([
       {
         path: '/logout',
         element: <LogoutPage />
+      },
+      {
+        path: '/privacy-policy',
+        element: <PrivacyPolicy />
+      },
+      {
+        path: '/terms-of-service',
+        element: <TermsOfService />
       }
     ]
   }

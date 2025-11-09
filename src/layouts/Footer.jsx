@@ -21,10 +21,10 @@ function Footer() {
                     </div>
                     <div className="col-md-4 text-md-end">
                         <div className="d-flex flex-column flex-md-row gap-3 justify-content-md-end mt-2 mt-md-0">
-                            <Link to="/" className="link-light text-decoration-none small">
+                            <Link to="/privacy-policy" className="link-light text-decoration-none small">
                                 Politique de confidentialité
                             </Link>
-                            <Link to="/" className="link-light text-decoration-none small">
+                            <Link to="/terms-of-service" className="link-light text-decoration-none small">
                                 Conditions d'utilisation
                             </Link>
                         </div>
