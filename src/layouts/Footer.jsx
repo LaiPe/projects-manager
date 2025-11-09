@@ -6,7 +6,7 @@ function Footer() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-8">
-                        <p className="mb-2 mb-md-1">© 2024 Projects Manager. Tous droits réservés.</p>
+                        <p className="mb-2 mb-md-1">© 2025 Projects Manager. Tous droits réservés.</p>
                         <p className="mb-0 text-light-emphasis">
                             Application de gestion de projets réalisée par{' '}
                             <Link 
