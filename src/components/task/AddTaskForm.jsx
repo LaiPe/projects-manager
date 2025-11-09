@@ -82,42 +82,103 @@ const AddTaskForm = memo(({ onError }) => {
     }
 
     return (
-        <li>
-            { isOpened ? (
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Nom de la tâche"
-                        value={taskTitle}
-                        onChange={handleTaskTitleChange}
-                        required
-                    />
-                    {titleError && <p style={{color: 'red'}}>{titleError}</p>}
-                    <input
-                        type="text"
-                        placeholder="ID de l'utilisateur assigné"
-                        value={assigneeId || ''}
-                        onChange={handleAssigneeChange}
-                    />
-                    {assigneeError && <p style={{color: 'red'}}>{assigneeError}</p>}
-                    <button 
-                        type="submit"
-                        disabled={isSubmitting || titleError || assigneeError}
-                    >
-                        Créer
-                    </button>
-                    <button 
-                        type="button" 
-                        onClick={toggleForm}
-                        disabled={isSubmitting}
-                    >
-                        Annuler
-                    </button>
-                </form>
+        <div className="card mb-3 shadow-sm">
+            {isOpened ? (
+                <div className="card-body">
+                    <h6 className="card-title mb-3">Nouvelle tâche</h6>
+                    <form onSubmit={handleSubmit}>
+                        <div className="row g-3">
+                            <div className="col-md-6">
+                                <label htmlFor="new-task-title" className="form-label">
+                                    Titre de la tâche
+                                </label>
+                                <input
+                                    type="text"
+                                    id="new-task-title"
+                                    className={`form-control ${titleError ? 'is-invalid' : ''}`}
+                                    placeholder="Nom de la tâche"
+                                    value={taskTitle}
+                                    onChange={handleTaskTitleChange}
+                                    required
+                                    disabled={isSubmitting}
+                                />
+                                {titleError && (
+                                    <div className="invalid-feedback">
+                                        {titleError}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="new-task-assignee" className="form-label">
+                                    ID Utilisateur assigné
+                                </label>
+                                <input
+                                    type="number"
+                                    id="new-task-assignee"
+                                    className={`form-control ${assigneeError ? 'is-invalid' : ''}`}
+                                    placeholder="ID de l'utilisateur assigné"
+                                    value={assigneeId || ''}
+                                    onChange={handleAssigneeChange}
+                                    disabled={isSubmitting}
+                                    required
+                                />
+                                {assigneeError && (
+                                    <div className="invalid-feedback">
+                                        {assigneeError}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        <div className="d-flex gap-2 mt-3">
+                            <button 
+                                type="submit"
+                                className="btn btn-success btn-sm"
+                                disabled={isSubmitting || titleError || assigneeError}
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                        Création...
+                                    </>
+                                ) : (
+                                    'Créer'
+                                )}
+                            </button>
+                            <button 
+                                type="button" 
+                                className="btn btn-outline-secondary btn-sm"
+                                onClick={toggleForm}
+                                disabled={isSubmitting}
+                            >
+                                Annuler
+                            </button>
+                        </div>
+                    </form>
+                </div>
             ) : (
-                <button onClick={toggleForm}>Ajouter une tâche</button>
+                <div 
+                    className="card-body d-flex align-items-center justify-content-center text-center"
+                    role="button"
+                    onClick={toggleForm}
+                    style={{cursor: 'pointer', minHeight: '70px'}}
+                >
+                    <div>
+                        <div className="d-flex align-items-center justify-content-center">
+                            <svg 
+                                width="24" 
+                                height="24" 
+                                fill="currentColor" 
+                                className="text-muted me-2"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            <span className="text-muted">Ajouter une tâche</span>
+                        </div>
+                    </div>
+                </div>
             )}
-        </li>
+        </div>
     );
 });
 

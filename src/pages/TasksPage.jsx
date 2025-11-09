@@ -35,11 +35,21 @@ function TasksPage() {
     }, [user.id]);
 
     return (
-        <div>
-            <h1>Tâches</h1>
-            <p>Bienvenue sur la page des tâches. Ici, vous pouvez gérer vos tâches.</p>
-            {error && <p style={{color: 'red'}}>{error}</p>}
-            {loading ? <Spinner /> : <TaskList tasks={tasks} onError={setError} />}
+        <div className="container-fluid py-4 hero-fullscreen-height-minus-footer">
+            {error && (
+                <div className="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                    <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                    {error}
+                </div>
+            )}
+            
+            {loading ? (
+                <div className="d-flex justify-content-center align-items-center" style={{minHeight: '300px'}}>
+                    <Spinner />
+                </div>
+            ) : (
+                <TaskList tasks={tasks} onError={setError} />
+            )}
         </div>
     );
 }

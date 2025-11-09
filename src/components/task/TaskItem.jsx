@@ -106,60 +106,165 @@ function TaskItem({ task, onError, modifyMode }) {
         }
 
         return (
-            <>
-                { isEditing ? (
-                    <li>
+            <div className="card mb-3 shadow-sm">
+                {isEditing ? (
+                    <div className="card-body">
+                        <h6 className="card-title mb-3">Modifier la tâche</h6>
                         <form onSubmit={handleUpdate}>
-                            <input
-                                type="text"
-                                value={editedTitle}
-                                onChange={handleTitleChange}
-                                disabled={isSubmitting}
-                            />
-                            {titleError && <p style={{ color: 'red' }}>{titleError}</p>}
-                            <input 
-                                type="number"
-                                value={editedAssigneeId}
-                                onChange={handleAssigneeChange}
-                                disabled={isSubmitting}
-                            />
-                            {assigneeError && <p style={{ color: 'red' }}>{assigneeError}</p>}
-                            <button type="submit" disabled={isSubmitting || titleError || assigneeError}>Enregistrer</button>
-                            <button type="button" onClick={toggleForm} disabled={isSubmitting}>Annuler</button>
+                            <div className="row g-3">
+                                <div className="col-md-6">
+                                    <label htmlFor={`task-title-${task.id}`} className="form-label">
+                                        Titre de la tâche
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id={`task-title-${task.id}`}
+                                        className={`form-control ${titleError ? 'is-invalid' : ''}`}
+                                        value={editedTitle}
+                                        onChange={handleTitleChange}
+                                        disabled={isSubmitting}
+                                        required
+                                    />
+                                    {titleError && (
+                                        <div className="invalid-feedback">
+                                            {titleError}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="col-md-6">
+                                    <label htmlFor={`task-assignee-${task.id}`} className="form-label">
+                                        ID Utilisateur assigné
+                                    </label>
+                                    <input 
+                                        type="number"
+                                        id={`task-assignee-${task.id}`}
+                                        className={`form-control ${assigneeError ? 'is-invalid' : ''}`}
+                                        value={editedAssigneeId}
+                                        onChange={handleAssigneeChange}
+                                        disabled={isSubmitting}
+                                        required
+                                    />
+                                    {assigneeError && (
+                                        <div className="invalid-feedback">
+                                            {assigneeError}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="d-flex gap-2 mt-3">
+                                <button 
+                                    type="submit" 
+                                    className="btn btn-success btn-sm"
+                                    disabled={isSubmitting || titleError || assigneeError}
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                            Enregistrement...
+                                        </>
+                                    ) : (
+                                        'Enregistrer'
+                                    )}
+                                </button>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-outline-secondary btn-sm"
+                                    onClick={toggleForm} 
+                                    disabled={isSubmitting}
+                                >
+                                    Annuler
+                                </button>
+                            </div>
                         </form>
-
-                    </li>
+                    </div>
                 ) : (
-                    <li>
-                        {task.id} {task.title} : à réaliser par l'utilisateur {task.assigneeId}
-                        <select
-                            value={editedStatus}
-                            onChange={handleStatusChange}
-                        >
-                            <option value="TODO">À faire</option>
-                            <option value="IN_PROGRESS">En cours</option>
-                            <option value="DONE">Terminé</option>
-                        </select>
-                        <button onClick={toggleForm}>Modifier</button>
-                        <button onClick={handleDelete}>Supprimer</button>
-                    </li>
+                    <div className="card-body">
+                        <div className="row align-items-center">
+                            <div className="col-md-6">
+                                <div className="d-flex align-items-center">
+                                    <h6 className="card-title mb-1 me-2">{task.title}</h6>
+                                    <span className="badge bg-secondary small">#{task.id}</span>
+                                </div>
+                                <p className="card-text text-muted small mb-0">
+                                    <i className="bi bi-person"></i> Assigné à l'utilisateur {task.assigneeId}
+                                </p>
+                            </div>
+                            <div className="col-md-3">
+                                <div className="d-flex align-items-center">
+                                    <span className="small text-muted me-2">Statut:</span>
+                                    <select
+                                        className="form-select form-select-sm"
+                                        value={editedStatus}
+                                        onChange={handleStatusChange}
+                                    >
+                                        <option value="TODO">À faire</option>
+                                        <option value="IN_PROGRESS">En cours</option>
+                                        <option value="DONE">Terminé</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col-md-3 text-md-end">
+                                <div className="d-flex gap-2 justify-content-md-end">
+                                    <button 
+                                        className="btn btn-secondary btn-sm"
+                                        onClick={toggleForm}
+                                        disabled={isSubmitting}
+                                    >
+                                        <i className="bi bi-pencil"></i> Modifier
+                                    </button>
+                                    <button 
+                                        className="btn btn-outline-danger btn-sm"
+                                        onClick={handleDelete}
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? (
+                                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        ) : (
+                                            <>
+                                                <i className="bi bi-trash"></i> Supprimer
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 )}
-            </>
+            </div>
         );
     } 
     else {
         return (
-            <li>
-                {task.id} {task.title} (associé au projet : {task?.project?.name})
-                <select
-                    value={editedStatus}
-                    onChange={handleStatusChange}
-                >
-                    <option value="TODO">À faire</option>
-                    <option value="IN_PROGRESS">En cours</option>
-                    <option value="DONE">Terminé</option>
-                </select>
-            </li>
+            <div className="card mb-3 shadow-sm">
+                <div className="card-body">
+                    <div className="row align-items-center">
+                        <div className="col-md-8">
+                            <div className="d-flex align-items-center">
+                                <h6 className="card-title mb-1 me-2">{task.title}</h6>
+                                <span className="badge bg-secondary small">#{task.id}</span>
+                            </div>
+                            <p className="card-text text-muted small mb-0">
+                                <i className="bi bi-folder"></i> Projet: {task?.project?.name}
+                            </p>
+                        </div>
+                        <div className="col-md-4 text-md-end">
+                            <div className="d-flex align-items-center justify-content-md-end gap-2">
+                                <span className="small text-muted me-2">Statut:</span>
+                                <select
+                                    className="form-select form-select-sm"
+                                    style={{width: 'auto'}}
+                                    value={editedStatus}
+                                    onChange={handleStatusChange}
+                                >
+                                    <option value="TODO">À faire</option>
+                                    <option value="IN_PROGRESS">En cours</option>
+                                    <option value="DONE">Terminé</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
