@@ -11,7 +11,7 @@ function Header() {
     };
 
     return (
-        <header className='navbar navbar-expand-lg bg-body-secondary sticky-top'>
+        <header className='navbar navbar-expand-lg bg-body-tertiary sticky-top'>
             <div className='container-fluid'>
                 <NavLink to="/" className='navbar-brand'>
                     <h1>Projects Manager</h1>
