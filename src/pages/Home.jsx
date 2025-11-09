@@ -16,7 +16,7 @@ function Home() {
 
             {/* Features Section */}
             <section className="d-flex flex-column align-items-center text-center container mb-5">
-                <h2>Une gestion de projets simplifiée</h2>
+                <h2 className="text-primary">Une gestion de projets simplifiée</h2>
                 <p className="mb-4">Tout ce dont vous avez besoin pour mener à bien vos projets, sans complexité inutile.</p>
 
                 <div className="d-flex flex-column flex-md-row gap-5 row-gap-4 justify-content-center">
@@ -39,7 +39,7 @@ function Home() {
 
             {/* How it works */}
             <section className="d-flex flex-column align-items-center text-center container mb-5">
-                <h2 className="mb-4">Comment ça marche ?</h2>
+                <h2 className="mb-4 text-primary">Comment ça marche ?</h2>
                 <div className="d-flex flex-column flex-md-row gap-5 row-gap-4 justify-content-center">
                     <div>
                         <h4>1. Créez votre compte</h4>
@@ -62,7 +62,7 @@ function Home() {
 
             {/* Benefits */}
             <section className="d-flex flex-column align-items-center text-center container mb-5">
-                <h2 className="mb-4">Pourquoi choisir notre gestionnaire ?</h2>
+                <h2 className="mb-4 text-primary">Pourquoi choisir notre gestionnaire ?</h2>
                 <div className="d-flex flex-column flex-md-row gap-5 row-gap-4 justify-content-center">
                     <div>
                         <h4>🚀 Simplicité d'usage</h4>
