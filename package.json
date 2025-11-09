@@ -3,6 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "Application de gestion de projets et de tâches collaboratives",
+  "author": {
+    "name": "Léo Peyronnet",
+    "email": "peyronnet.leo@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "copyright": "Copyright (c) 2025 Léo Peyronnet. Tous droits réservés.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LaiPe/projects-manager.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
