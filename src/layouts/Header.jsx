@@ -6,7 +6,9 @@ function Header() {
 
     return (
         <header>
-            <h1>Projects Manager</h1>
+            <NavLink to="/">
+                <h1>Projects Manager</h1>
+            </NavLink>
             <nav>
                 <ul>
                     {isAuthenticated ? (
