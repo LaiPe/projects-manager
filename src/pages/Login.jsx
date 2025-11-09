@@ -54,52 +54,81 @@ export function Login() {
     };
 
     return (
-        <div>
-            <h2>Connexion</h2>
+        <div className="container-fluid d-flex align-items-center justify-content-center hero-fullscreen-height bg-light">
+            <div className="card shadow-sm" style={{maxWidth: '400px', width: '100%'}}>
+                <div className="card-body p-4">
+                    <h2 className="card-title text-center mb-4">Connexion</h2>
 
-            {error && (
-                <div style={{ color: 'red', marginBottom: '1rem' }}>
-                    {error}
+                    {error && (
+                        <div className="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                    )}
+
+                    <form method="post" onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="username" className="form-label">
+                                Nom d'utilisateur
+                            </label>
+                            <input 
+                                type="text" 
+                                id="username"
+                                name="username" 
+                                className={`form-control ${usernameError ? 'is-invalid' : ''}`}
+                                value={username}
+                                onChange={(e) => handleUsernameChange(e)}
+                                required 
+                            />
+                            {usernameError && (
+                                <div className="invalid-feedback">
+                                    {usernameError}
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">
+                                Mot de passe
+                            </label>
+                            <input 
+                                type="password" 
+                                id="password"
+                                name="password" 
+                                className={`form-control ${passwordError ? 'is-invalid' : ''}`}
+                                value={password}
+                                onChange={(e) => handlePasswordChange(e)}
+                                required 
+                            />
+                            {passwordError && (
+                                <div className="invalid-feedback">
+                                    {passwordError}
+                                </div>
+                            )}
+                        </div>
+                        
+                        <button 
+                            type="submit"
+                            className="btn btn-primary w-100 mb-3"
+                            disabled={isSubmitting || usernameError || passwordError}
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Connexion...
+                                </>
+                            ) : (
+                                'Se connecter'
+                            )}
+                        </button>
+                    </form>
+
+                    <div className="text-center">
+                        <p className="mb-0 text-muted">
+                            Pas de compte ? <Link to="/register" className="link-primary text-decoration-none">S'inscrire</Link>
+                        </p>
+                    </div>
                 </div>
-            )}
-
-            <form method="post" onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Nom d'utilisateur:
-                        <input 
-                            type="text" 
-                            name="username" 
-                            value={username}
-                            onChange={(e) => handleUsernameChange(e)}
-                            required />
-                    </label>
-                    {usernameError && <p style={{ color: 'red' }}>{usernameError}</p>}
-                </div>
-                <div>
-                    <label>
-                        Mot de passe:
-                        <input 
-                            type="password" 
-                            name="password" 
-                            value={password}
-                            onChange={(e) => handlePasswordChange(e)}
-                            required />
-                    </label>
-                    {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-                </div>
-                <button 
-                    type="submit"
-                    disabled={isSubmitting || usernameError || passwordError }
-                    >
-                    {isSubmitting ? 'Connexion...' : 'Se connecter'}
-                </button>
-            </form>
-
-            <p>
-                Pas de compte ? <Link to="/register">S'inscrire</Link>
-            </p>
-
+            </div>
         </div>
     )
 }
