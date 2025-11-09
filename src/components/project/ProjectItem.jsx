@@ -70,31 +70,102 @@ const ProjectItem = memo(({ project, onError }) => {
     };
 
     return (
-        <>
-            { isEditing ? (
-                <li>
+        <div className="card h-100 shadow-sm">
+            {isEditing ? (
+                <div className="card-body">
                     <form onSubmit={handleUpdate}>
-                        <input
-                            type="text"
-                            value={editedName}
-                            onChange={handleChange}
-                            required
-                        />
-                        <button type="submit" disabled={isSubmitting || error}>Valider</button>
-                        <button type="button" onClick={toggleForm} disabled={isSubmitting}>Annuler</button>
-                        {error && <p style={{color: 'red'}}>{error}</p>}
+                        <div className="mb-3">
+                            <label htmlFor={`project-name-${project.id}`} className="form-label">
+                                Nom du projet
+                            </label>
+                            <input
+                                type="text"
+                                id={`project-name-${project.id}`}
+                                className={`form-control ${error ? 'is-invalid' : ''}`}
+                                value={editedName}
+                                onChange={handleChange}
+                                required
+                                disabled={isSubmitting}
+                            />
+                            {error && (
+                                <div className="invalid-feedback">
+                                    {error}
+                                </div>
+                            )}
+                        </div>
+                        <div className="d-flex gap-2">
+                            <button 
+                                type="submit" 
+                                className="btn btn-success btn-sm"
+                                disabled={isSubmitting || error}
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                        Validation...
+                                    </>
+                                ) : (
+                                    'Valider'
+                                )}
+                            </button>
+                            <button 
+                                type="button" 
+                                className="btn btn-outline-secondary btn-sm"
+                                onClick={toggleForm} 
+                                disabled={isSubmitting}
+                            >
+                                Annuler
+                            </button>
+                        </div>
                     </form>
-                </li>
+                </div>
             ) : (
-                <li>
-                    {project.id} {project.name} (Créé par l'utilisateur {project.creatorId})
-                    <button onClick={toggleForm}>Modifier</button>
-                    <button onClick={handleDelete}>Supprimer</button>
-                    <button onClick={handleViewDetails}>Voir les détails</button>
-                </li>
+                <>
+                    <div className="card-body">
+                        <div className="d-flex align-items-center">
+                            <h5 className="card-title me-1">{project.name}</h5>
+                            <p className="card-text text-muted small">
+                                <i className="bi bi-hash"></i> #{project.id}
+                            </p>
+                        </div>
+                        <p className="card-text text-muted small">
+                            <i className="bi bi-person"></i> Créé par l'utilisateur {project.creatorId}
+                        </p>
+                    </div>
+                    <div className="card-footer bg-transparent">
+                        <div className="d-flex flex-wrap gap-2">
+                            <button 
+                                className="btn btn-primary btn-sm"
+                                onClick={handleViewDetails}
+                                disabled={isSubmitting}
+                            >
+                                <i className="bi bi-eye"></i> Détails
+                            </button>
+                            <button 
+                                className="btn btn-outline-primary btn-sm"
+                                onClick={toggleForm}
+                                disabled={isSubmitting}
+                            >
+                                <i className="bi bi-pencil"></i> Modifier
+                            </button>
+                            <button 
+                                className="btn btn-outline-danger btn-sm"
+                                onClick={handleDelete}
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? (
+                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                ) : (
+                                    <>
+                                        <i className="bi bi-trash"></i> Supprimer
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </>
             )}
-
-        </>
+        </div>
     );
 });
 

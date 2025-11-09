@@ -53,36 +53,81 @@ const AddProjectForm = memo(({ onError }) => {
     }
 
     return (
-        <li>
-            { isOpened ? (
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Nom du projet"
-                        value={projectName}
-                        onChange={handleChange}
-                        required
-                    />
-
-                    <button 
-                        type="submit"
-                        disabled={isSubmitting || error}
-                    >
-                        Créer
-                    </button>
-                    <button 
-                        type="button" 
-                        onClick={toggleForm}
-                        disabled={isSubmitting}
-                    >
-                        Annuler
-                    </button>
-                    {error && <p style={{color: 'red'}}>{error}</p>}
-                </form>
+        <div className="card h-100 shadow-sm">
+            {isOpened ? (
+                <div className="card-body">
+                    <h5 className="card-title">Nouveau projet</h5>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="new-project-name" className="form-label">
+                                Nom du projet
+                            </label>
+                            <input
+                                type="text"
+                                id="new-project-name"
+                                className={`form-control ${error ? 'is-invalid' : ''}`}
+                                placeholder="Nom du projet"
+                                value={projectName}
+                                onChange={handleChange}
+                                required
+                                disabled={isSubmitting}
+                            />
+                            {error && (
+                                <div className="invalid-feedback">
+                                    {error}
+                                </div>
+                            )}
+                        </div>
+                        <div className="d-flex gap-2">
+                            <button 
+                                type="submit"
+                                className="btn btn-success btn-sm"
+                                disabled={isSubmitting || error}
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                        Création...
+                                    </>
+                                ) : (
+                                    'Créer'
+                                )}
+                            </button>
+                            <button 
+                                type="button" 
+                                className="btn btn-outline-secondary btn-sm"
+                                onClick={toggleForm}
+                                disabled={isSubmitting}
+                            >
+                                Annuler
+                            </button>
+                        </div>
+                    </form>
+                </div>
             ) : (
-                <button onClick={toggleForm}>Ajouter un projet</button>
+                <div 
+                    className="card-body d-flex align-items-center justify-content-center text-center h-100 cursor-pointer"
+                    role="button"
+                    onClick={toggleForm}
+                    style={{cursor: 'pointer', minHeight: '125px'}}
+                >
+                    <div>
+                        <div className="mb-3">
+                            <svg 
+                                width="48" 
+                                height="48" 
+                                fill="currentColor" 
+                                className="text-muted"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                        </div>
+                        <h6 className="text-muted mb-0">Ajouter un projet</h6>
+                    </div>
+                </div>
             )}
-        </li>
+        </div>
     );
 });
 
