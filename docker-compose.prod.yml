@@ -2,12 +2,10 @@ services:
   projects-manager:
     image: ghcr.io/laipe/laipe/projects-manager:latest
     container_name: projects-manager
-    ports:
-      - "3000:80"
     networks:
       - caddy_network
     restart: unless-stopped
-    
+
 networks:
   caddy_network:
     external: true
